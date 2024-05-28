@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useMediaQuery, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import MobileDesign from './mobile/MobileApp';
+import DesktopDesign from './desktop/DesktopApp';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+
 
 function App() {
+  const prefersDesktop = useMediaQuery('(min-width:600px)');
+  const theme = createTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/"
+            element={prefersDesktop ? <DesktopDesign /> : <MobileDesign />}
+          />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
