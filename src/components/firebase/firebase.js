@@ -1,17 +1,15 @@
-// /src/firebase.js
-
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBXFnhQhqXDZYKcvKVQIPS_ZrNTJ1OoMLw",
-  authDomain: "michellproyecto.firebaseapp.com",
-  projectId: "michellproyecto",
-  storageBucket: "michellproyecto.appspot.com",
-  messagingSenderId: "461343144607",
-  appId: "1:461343144607:web:a3967fd71011141bc3c0aa",
-  measurementId: "G-LKZ45BJQSP"
+  apiKey: "",
+  authDomain: "firebaseapp.com",
+  projectId: "",
+  storageBucket: "appspot.com",
+  messagingSenderId: "",
+  appId: "1:xxxxxx:web:xxxxxxx",
+  measurementId: "G-xxxxxxxx"
 };
 
 const app = initializeApp(firebaseConfig);
