@@ -1,0 +1,239 @@
+@import 'normalize.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --primary: #fe2c55;
+  --black: #000;
+  --white: #fff;
+  --text-color: #161823;
+  --yellow: #f9f95b;
+
+  --font-family: 'ProximaNova', sans-serif;
+
+  // Default layout
+  --default-layout-header-height: 60px;
+  --default-layout-width: 1150px;
+  --default-layout-horizontal-spacer: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizespeed;
+  color: var(--text-color);
+  overflow-y: overlay;
+  background-color: #f8f8f8;
+}
+
+// Scrollbar CSS
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+button,
+input,
+[tabindex] {
+  outline: none;
+  border: none;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+//bar find infor
+.searchBar {
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(22, 24, 35, 0.06);
+  border-radius: 92px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  margin: 0;
+  input {
+    font-family: 'IBM Plex Sans', ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    border: none;
+    background-color: #f1f1f2;
+    outline: none;
+    padding: 0;
+    width: 292px;
+    color: rgba(22, 24, 35, 1);
+    caret-color: rgba(254, 44, 85, 1);
+    border-radius: 92px;
+    padding-left: 5%;
+  }
+  span {
+    width: 1px;
+    height: 28px;
+    margin: -3px 0;
+    background: rgba(22, 24, 35, 0.12);
+  }
+  button {
+    padding: 11px 16px 11px 12px;
+    margin: -12px -16px;
+    font-size: 0;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: transparent;
+    margin-left: 0;
+    svg {
+      width: 20px;
+      height: auto;
+    }
+  }
+}
+
+// Custom tippy tooltip
+body {
+  height: 100%;
+  .tippy-box {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    background-color: rgba(84, 84, 84, 0.92);
+  }
+
+  .tippy-arrow {
+    color: rgba(84, 84, 84, 0.92);
+  }
+
+  .tippy-content {
+    padding: 8px 9px;
+  }
+
+  .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+    top: -8px;
+  }
+}
+
+.heart-svg {
+  width: 20px;
+  height: 20px;
+  g {
+    .path-heart-svg {
+      fill: var(--black) !important;
+    }
+    .path-heart-svg-liked {
+      fill: var(--primary) !important;
+    }
+  }
+}
+
+.save-svg {
+  width: 20px;
+  height: 20px;
+  g {
+    .path-save-svg {
+      fill: var(--black) !important;
+    }
+    .path-save-svg-saved {
+      fill: var(--yellow) !important;
+    }
+  }
+}
+
+@keyframes rotary {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-120deg);
+  }
+}
+@keyframes big-rotary {
+  from {
+    transform: rotate(0deg);
+    width: 100px;
+    height: 100px;
+  }
+  to {
+    transform: rotate(-200deg);
+    width: 60px;
+    height: 60px;
+  }
+}
+@keyframes heartMove01 {
+  20% {
+    transform: rotate(20deg);
+    opacity: 0.8;
+  }
+
+  60% {
+    transform: rotate(50deg);
+    opacity: 0.4;
+  }
+  80% {
+    transform: rorate(20deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: rotate(-50deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heartMove02 {
+  20% {
+    transform: rotate(0deg);
+    opacity: 0.7;
+  }
+  60% {
+    transform: rotate(30deg);
+    opacity: 0.5;
+  }
+  80% {
+    transform: rorate(0deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: rotate(60deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heartMove03 {
+  from {
+    top: 90%;
+    opacity: 1;
+  }
+  to {
+    top: 20%;
+    opacity: 0;
+  }
+}

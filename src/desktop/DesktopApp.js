@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container} from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import Feed from '../desktop/Feed/Feed';
+import Header from '../desktop/pages/Default/Header/Header';
 
 const DesktopDesign = () => {
   return (
     <Container>
       <Routes>
-        <Route path="/" element={<Feed />} />
+        <Route path="/" element={<Header />} />
       </Routes>
     </Container>
   );

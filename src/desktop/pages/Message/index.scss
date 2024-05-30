@@ -1,0 +1,73 @@
+.display-video01 {
+  position: relative;
+  .animated-heart {
+    position: absolute;
+    .father-heart {
+      position: relative;
+      height: 50px;
+      img {
+        position: absolute;
+        top: 90%;
+        left: 0px;
+      }
+      .heart01 {
+        animation: heartMove01 1s;
+      }
+      .heart02 {
+        animation: heartMove02 1s;
+      }
+      .heart03 {
+        animation: heartMove03 1.8s;
+      }
+    }
+  }
+}
+@keyframes heartMove01 {
+  20% {
+    transform: rotate(20deg);
+    opacity: 0.8;
+  }
+
+  60% {
+    transform: rotate(50deg);
+    opacity: 0.4;
+  }
+  80% {
+    transform: rorate(20deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: rotate(-50deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heartMove02 {
+  20% {
+    transform: rotate(0deg);
+    opacity: 0.7;
+  }
+  60% {
+    transform: rotate(30deg);
+    opacity: 0.5;
+  }
+  80% {
+    transform: rorate(0deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: rotate(60deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heartMove03 {
+  from {
+    top: 90%;
+    opacity: 1;
+  }
+  to {
+    top: 20%;
+    opacity: 0;
+  }
+}
