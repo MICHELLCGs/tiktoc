@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  react-app:
+    image: react-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: overlay
