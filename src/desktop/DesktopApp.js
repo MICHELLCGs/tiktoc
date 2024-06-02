@@ -1,15 +1,31 @@
 import React from 'react';
-import { Container} from '@mui/material';
+import { Container } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
+import { EventProvider } from './Context/EventContext.js';
+import GlobalStyles from '../components/globalStyle';
 import Header from '../desktop/pages/Default/Header/Header';
+import DefaultLayout from '../desktop/pages/Default/index';
+import Home from '../desktop/pages/Home/index.js';
+import Detail from '../desktop/pages/Detail-Video/index.js';
 
 const DesktopDesign = () => {
   return (
-    <Container>
-      <Routes>
-        <Route path="/" element={<Header />} />
-      </Routes>
-    </Container>
+    <React.StrictMode>
+      <EventProvider>
+        <Container>
+          <GlobalStyles>
+            <DefaultLayout>
+              <Routes>
+                <Route path="/" element={<Header />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/detail" element={<Detail />} />
+                
+              </Routes>
+            </DefaultLayout>
+          </GlobalStyles>
+        </Container>
+      </EventProvider>
+    </React.StrictMode>
   );
 };
 
