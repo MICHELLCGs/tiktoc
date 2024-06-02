@@ -1,20 +1,29 @@
-# Usa una imagen base de Node.js
-FROM node:18
+# Usar una imagen base de Node.js
+FROM node:14 AS build
 
-# Establece el directorio de trabajo en el contenedor
+# Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copia el archivo package.json y package-lock.json (si existe)
+# Copiar el archivo package.json y package-lock.json (si existe)
 COPY package*.json ./
 
-# Instala las dependencias
+# Instalar las dependencias
 RUN npm install
 
-# Copia el resto del código de la aplicación
+# Copiar el resto del código de la aplicación
 COPY . .
 
-# Expone el puerto 3000 para el servidor de desarrollo
-EXPOSE 3000
+# Construir la aplicación para producción
+RUN npm run build
 
-# Comando por defecto para iniciar la aplicación en modo de desarrollo
-CMD ["npm", "start"]
+# Utilizar una imagen base de Nginx para servir la aplicación
+FROM nginx:alpine
+
+# Copiar los archivos de build de React al directorio de Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Exponer el puerto 80 para el servidor web
+EXPOSE 80
+
+# Comando por defecto para ejecutar Nginx
+CMD ["nginx", "-g", "daemon off;"]
