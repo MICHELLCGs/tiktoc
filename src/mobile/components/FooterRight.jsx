@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleCheck, faHeart, faCommentDots, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
+import CommentsModal from './CommentsModal';
 import './FooterRight.css';
 
-function FooterRight({ likes, comments, saves, shares, profilePic }) {
+function FooterRight({ likes, comments, profilePic, commentList, isCurrentVideo }) {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [userAddIcon, setUserAddIcon] = useState(faCirclePlus);
+  const [showModal, setShowModal] = useState(false);
 
   const handleUserAddClick = () => {
     setUserAddIcon(faCircleCheck);
     setTimeout(() => {
       setUserAddIcon(null);
-    }, 3000); // Change the delay time (in milliseconds) as needed
+    }, 3000);
   };
 
-  // Function to convert likes count to a number
+  const handleLikeClick = () => {
+    setLiked((prevLiked) => !prevLiked);
+  };
+
+  const handleCommentClick = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    if (!isCurrentVideo) {
+      closeModal();
+    }
+  }, [isCurrentVideo]);
+
   const parseLikesCount = (count) => {
     if (typeof count === 'string') {
       if (count.endsWith('K')) {
@@ -26,7 +45,6 @@ function FooterRight({ likes, comments, saves, shares, profilePic }) {
     return count;
   };
 
-  // Function to format likes count
   const formatLikesCount = (count) => {
     if (count >= 10000) {
       return (count / 1000).toFixed(1) + 'K';
@@ -34,40 +52,30 @@ function FooterRight({ likes, comments, saves, shares, profilePic }) {
     return count;
   };
 
-  const handleLikeClick = () => {
-    setLiked((prevLiked) => !prevLiked);
-  };
-
   return (
     <div className="footer-right">
       <div className="sidebar-icon">
         {profilePic ? (
-          // Displaying the user profile picture
           <img src={profilePic} className='userprofile' alt='Profile' style={{ width: '45px', height: '45px', color: '#616161' }} />
         ) : null}
-        {/* The user add icon */}
-        <FontAwesomeIcon icon={userAddIcon} className='useradd' style={{ width: '15px', height: '15px', color: '#FF0000' }} onClick={handleUserAddClick}/>
+        <FontAwesomeIcon icon={userAddIcon} className='useradd' style={{ width: '15px', height: '15px', color: '#FF0000' }} onClick={handleUserAddClick} />
       </div>
       <div className="sidebar-icon">
-        {/* The heart icon for liking */}
         <FontAwesomeIcon
           icon={faHeart}
           style={{ width: '35px', height: '35px', color: liked ? '#FF0000' : 'white' }}
           onClick={handleLikeClick}
         />
-        {/* Displaying the formatted likes count */}
         <p>{formatLikesCount(parseLikesCount(likes) + (liked ? 1 : 0))}</p>
       </div>
       <div className="sidebar-icon">
-        {/* The comment icon */}
-        <FontAwesomeIcon icon={faCommentDots} style={{ width: '35px', height: '35px', color: 'white' }} />
-        {/* Displaying the number of comments */}
+        <FontAwesomeIcon icon={faCommentDots} style={{ width: '35px', height: '35px', color: 'white' }} onClick={handleCommentClick} />
         <p>{comments}</p>
       </div>
       <div className="sidebar-icon record">
-        {/* Displaying the record icon */}
         <img src="https://static.thenounproject.com/png/934821-200.png" alt='Record Icon' />
       </div>
+      {showModal && <CommentsModal comments={commentList} onClose={closeModal} />}
     </div>
   );
 }
