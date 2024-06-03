@@ -6,7 +6,7 @@ import MobileDesign from './mobile/MobileApp';
 import DesktopDesign from './desktop/DesktopApp';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-
+import MobilProfile from './mobile/Profile/Profile'
 
 function App() {
   const prefersDesktop = useMediaQuery('(min-width:600px)');
@@ -23,6 +23,8 @@ function App() {
             path="/"
             element={prefersDesktop ? <DesktopDesign /> : <MobileDesign />}
           />
+          <Route path="/perfil" element={<MobilProfile />} />
+          
         </Routes>
       </Router>
     </ThemeProvider>
