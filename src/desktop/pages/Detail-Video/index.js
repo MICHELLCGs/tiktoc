@@ -165,7 +165,7 @@ const DetailVideo = () => {
                   />
                 </g>
               </svg>
-              <img src="/logos/logo-tiktok.svg" />
+              <img src="/public/logos/logo-tiktok.svg" />
             </div>
             <div className="flexbox02">
               <SearchBar
