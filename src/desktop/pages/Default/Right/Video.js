@@ -82,7 +82,7 @@ const Video = () => {
   function changeAndSaveVolume(volumeNow) {
     dispatch({ type: "save-volume-now", payload: volumeNow });
     if (state.volumeNow === 40) {
-      dispatch({ type: "volume", payload: false });
+      dispatch({ type: "volume", payload: true });
     }
     if (
       Math.max(state.volumeNow, state.volumeBefore) === state.volumeNow &&
