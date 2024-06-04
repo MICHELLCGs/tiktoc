@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import Draggable from "react-draggable";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useEventContext } from "../../../Context/hooks";
 const Video = () => {
   const [state, dispatch] = useEventContext();
   const idVideo = useRef();
+  const [currentTime, setCurrentTime] = useState(0);
   let clickTimer = null;
   const navigate = useNavigate();
 
@@ -26,12 +27,24 @@ const Video = () => {
     }, 2000);
   }, [state.doubleClickVideo]);
 
+  useEffect(() => {
+    const updateCurrentTime = () => {
+      setCurrentTime(idVideo.current.currentTime);
+    };
+
+    idVideo.current.addEventListener("timeupdate", updateCurrentTime);
+
+    return () => {
+      idVideo.current.removeEventListener("timeupdate", updateCurrentTime);
+    };
+  }, []);
+
   const handleClickVideo = (e) => {
     if (!clickTimer) {
       clickTimer = setTimeout(() => {
-        navigate("/user-id/video/id-video");
+        /*navigate("/user-id/video/id-video");
         clearTimeout(clickTimer);
-        clickTimer = null;
+        clickTimer = null;*/
       }, 500);
 
       return;
@@ -49,6 +62,7 @@ const Video = () => {
     dispatch({ type: "checkAnimationPosition", payload: { x: x, y: y } });
     dispatch({ type: "doubleClickVideo", payload: true });
   };
+
   const HandleChangeVolume = (e) => {
     const { clientY } = e;
     const y = Math.floor(
@@ -82,7 +96,7 @@ const Video = () => {
   function changeAndSaveVolume(volumeNow) {
     dispatch({ type: "save-volume-now", payload: volumeNow });
     if (state.volumeNow === 40) {
-      dispatch({ type: "volume", payload: false });
+      dispatch({ type: "volume", payload: true });
     }
     if (
       Math.max(state.volumeNow, state.volumeBefore) === state.volumeNow &&
@@ -110,7 +124,9 @@ const Video = () => {
   const trackPositon = ({ y }) => {
     changeAndSaveVolume(y);
   };
-
+  const handleTimeUpdate = () => {
+    console.log("Tiempo actual del video:", idVideo.current.currentTime);
+  };
   return (
     <>
       <div className="display-video">
@@ -120,6 +136,7 @@ const Video = () => {
           ref={idVideo}
           alt="01"
           src="/videos/01.mp4"
+          onTimeUpdate={handleTimeUpdate}
         />
         <div
           className="animated-heart"
@@ -194,7 +211,14 @@ const Video = () => {
             alt="volume"
           />
         </div>
+        <progress
+      className="video-progress"
+      value={currentTime}
+      max={idVideo.current ? idVideo.current.duration : 0}
+    />
       </div>
+
+      
     </>
   );
 };

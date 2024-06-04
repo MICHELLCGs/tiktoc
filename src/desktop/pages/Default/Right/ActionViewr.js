@@ -6,7 +6,7 @@ import { useEventContext } from '../../../Context/hooks';
 const ActionViewer = () => {
   const [state, dispatch] = useEventContext();
   const navigate = useNavigate();
-
+ 
   function HandleLike() {
     // set State and check with clsx
     dispatch({ type: 'like' });

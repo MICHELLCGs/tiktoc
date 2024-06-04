@@ -7,12 +7,13 @@ function ElementRight() {
     {
       avatar: '/img-user-upload/avatar03.jpeg',
       userId: '06082013krj',
-      userName: 'Carlina',
+      userName: 'Carolina',
       details: '1-16',
       hashtags: ['#hocmoingay', '#xuhuong', '#trending'],
       musicBackground: '/logos/music-background.png',
       backgroundMusic: '无敌小可爱 - 叶雨岑',
-      videoUrl: 'url-to-video-1',
+      videoUrl: '/videos/01.mp4',
+      videoId: 'video-1',
     },
     {
       avatar: '/img-user-upload/avatar03.jpeg',
@@ -23,6 +24,7 @@ function ElementRight() {
       musicBackground: '/logos/music-background.png',
       backgroundMusic: '无敌小可爱 - 叶雨岑',
       videoUrl: 'url-to-video-2',
+      videoId: 'video-2',
     },
   ];
 
