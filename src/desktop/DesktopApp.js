@@ -22,7 +22,7 @@ const DesktopDesign = () => {
                 <Route path="/" element={<Header />} />
                 <Route path="/following" element={<Following />} />
                 <Route path="/message" element={<LayoutMessage><Message /></LayoutMessage>} />
-                <Route path="/user/:userId/video/:videoId" element={<LayoutDetailVideo><DetailVideo /></LayoutDetailVideo>} />
+                <Route path="/user-id/video/:id-video" element={<DetailVideo />} />
                 <Route path="/test" element={<LayoutDisplayUserInvalidate><DisplayUserInvalidate /></LayoutDisplayUserInvalidate>} />
               </Routes>
             </DefaultLayout>

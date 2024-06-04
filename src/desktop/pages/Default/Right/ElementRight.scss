@@ -212,7 +212,24 @@ $size-medium-heart-before-after: 10px;
                 bottom: 50%;
               }
             }
+            position: relative;
+            .video-progress {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 5px;
+              background-color: rgb(255, 241, 241); 
+              &::-webkit-progress-value {
+                background-color: black;
+              }
+              &::-moz-progress-bar {
+                background-color: black; 
+              }
+            }
           }
+          
+          
           .res-user-video {
             display: flex;
             flex-direction: column;

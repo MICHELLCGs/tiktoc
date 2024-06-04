@@ -13,6 +13,7 @@ function ElementRight() {
       musicBackground: '/logos/music-background.png',
       backgroundMusic: '无敌小可爱 - 叶雨岑',
       videoUrl: '/videos/01.mp4',
+      videoId: 'video-1',
     },
     {
       avatar: '/img-user-upload/avatar03.jpeg',
@@ -23,6 +24,7 @@ function ElementRight() {
       musicBackground: '/logos/music-background.png',
       backgroundMusic: '无敌小可爱 - 叶雨岑',
       videoUrl: 'url-to-video-2',
+      videoId: 'video-2',
     },
   ];
 
