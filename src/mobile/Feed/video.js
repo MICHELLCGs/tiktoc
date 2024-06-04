@@ -7,6 +7,7 @@ import TopNavbar from '../components/TopNavbar';
 
 const videoUrls = [
   {
+    id: '1',
     url: require('../videos/video1.mp4'),
     profilePic: 'https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/9d429ac49d6d18de6ebd2a3fb1f39269~c5_100x100.jpeg?x-expires=1688479200&x-signature=pjH5pwSS8Sg1dJqbB1GdCLXH6ew%3D',
     username: 'csjackie',
@@ -20,6 +21,7 @@ const videoUrls = [
     ]
   },
   {
+    id: '2',
     url: require('../videos/video2.mp4'),
     profilePic: 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/eace3ee69abac57c39178451800db9d5~c5_100x100.jpeg?x-expires=1688479200&x-signature=wAkVmwL7lej15%2B16ypSWQOqTP8s%3D',
     username: 'dailydotdev',
@@ -33,6 +35,7 @@ const videoUrls = [
     ]
   },
   {
+    id: '3',
     url: require('../videos/video3.mp4'),
     profilePic: 'https://p77-sign-va.tiktokcdn.com/tos-maliva-avt-0068/4e6698b235eadcd5d989a665704daf68~c5_100x100.jpeg?x-expires=1688479200&x-signature=wkwHDKfNuIDqIVHNm29%2FRf40R3w%3D',
     username: 'wojciechtrefon',
@@ -46,6 +49,7 @@ const videoUrls = [
     ]
   },
   {
+    id: '4',
     url: require('../videos/video4.mp4'),
     profilePic: 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/4bda52cf3ad31c728153859262c329db~c5_100x100.jpeg?x-expires=1688486400&x-signature=ssUbbCpZFJj6uj33D%2BgtcqxMvgQ%3D',
     username: 'faruktutkus',
@@ -122,6 +126,7 @@ function App() {
         {videos.map((video, index) => (
           <VideoCard
             key={index}
+            id={video.id}
             username={video.username}
             description={video.description}
             song={video.song}

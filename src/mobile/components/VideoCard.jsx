@@ -1,20 +1,69 @@
 import React, { useRef, useEffect, useState } from 'react';
 import FooterLeft from './FooterLeft';
 import FooterRight from './FooterRight';
-import CommentsModal from './CommentsModal'; // Importamos el componente CommentsModal
+import CommentsModal from './CommentsModal';
 import './VideoCard.css';
 
 const VideoCard = (props) => {
-  const { url, username, description, song, likes, comments, profilePic, setVideoRef, autoplay, commentList, onCommentsToggle } = props;
+  const { id, url, username, description, song, likes, comments, profilePic, setVideoRef, autoplay, commentList, onCommentsToggle, isCurrentVideo } = props;
   const videoRef = useRef(null);
   const [showComments, setShowComments] = useState(false);
-  const [videoComments, setVideoComments] = useState(commentList); // Estado para almacenar los comentarios del video
+  const [videoComments, setVideoComments] = useState(commentList);
 
   useEffect(() => {
     if (autoplay) {
       videoRef.current.play();
     }
   }, [autoplay]);
+
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+      const currentTime = videoRef.current.currentTime;
+      const duration = videoRef.current.duration;
+      const percentagePlayed = Math.min((currentTime / duration) * 100, 100);
+      if (!isNaN(percentagePlayed)) {
+        console.log(`Video ID: ${id} - Percentage Played: ${percentagePlayed.toFixed(2)}%`);
+      }
+    };
+
+    const handleProgress = () => {
+      const buffered = videoRef.current.buffered;
+      if (buffered.length > 0) {
+        const bufferEnd = buffered.end(buffered.length - 1);
+        const duration = videoRef.current.duration;
+        const bufferPercentage = (bufferEnd / duration) * 100;
+        console.log(`Video ID: ${id} - Buffered: ${bufferPercentage.toFixed(2)}%`);
+      }
+    };
+
+    const handleLoadedMetadata = () => {
+      console.log(`Video ID: ${id} - Percentage Played: 0.00%`);
+    };
+
+    const videoElement = videoRef.current;
+    videoElement.addEventListener('timeupdate', handleTimeUpdate);
+    videoElement.addEventListener('progress', handleProgress);
+    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    return () => {
+      videoElement.removeEventListener('timeupdate', handleTimeUpdate);
+      videoElement.removeEventListener('progress', handleProgress);
+      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (!isCurrentVideo) {
+      videoRef.current.currentTime = 0;
+      console.log(`Video ID: ${id} - Percentage Played: 0.00%`);
+    }
+  }, [isCurrentVideo]);
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
 
   const onVideoPress = () => {
     if (videoRef.current.paused) {
@@ -27,18 +76,18 @@ const VideoCard = (props) => {
   const toggleComments = () => {
     const newShowComments = !showComments;
     setShowComments(newShowComments);
-    onCommentsToggle(newShowComments); // Notificar al componente padre sobre el estado de los comentarios
+    onCommentsToggle(newShowComments);
   };
 
-  // Función para agregar un nuevo comentario al video
   const addComment = (newComment) => {
     setVideoComments((prevComments) => [...prevComments, newComment]);
   };
 
   return (
     <div className="video">
-      {/* El elemento de video */}
       <video
+        id={id}
+        key={url}
         className="player"
         onClick={onVideoPress}
         ref={(ref) => {
@@ -50,11 +99,9 @@ const VideoCard = (props) => {
       ></video>
       <div className="bottom-controls">
         <div className="footer-left">
-          {/* La parte izquierda del contenedor */}
           <FooterLeft username={username} description={description} song={song} />
         </div>
         <div className="footer-right">
-          {/* La parte derecha del contenedor */}
           <FooterRight 
             likes={likes} 
             comments={comments} 
@@ -65,12 +112,11 @@ const VideoCard = (props) => {
           />
         </div>
       </div>
-      {/* Modal de comentarios */}
       {showComments && (
         <CommentsModal 
-          comments={videoComments} // Pasamos la lista de comentarios actualizada al modal
-          onClose={toggleComments} // Pasamos la función para cerrar el modal
-          onCommentSubmit={addComment} // Pasamos la función para agregar comentarios
+          comments={videoComments}
+          onClose={toggleComments}
+          onCommentSubmit={addComment}
         />
       )}
     </div>

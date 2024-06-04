@@ -38,6 +38,8 @@
   
   .comments-modal h2 {
     margin-bottom: 20px;
+    color: #000;
+    text-shadow: none;
   }
   
   .comments-modal ul {
@@ -47,6 +49,43 @@
   
   .comments-modal li {
     padding: 10px 0;
+    color: #000;
+    text-shadow: none;
     border-bottom: 1px solid #ddd; /* Línea separadora */
   }
   
+  .new-comment {
+    margin-top: 20px;
+  }
+  
+  .new-comment textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+  }
+  
+  .new-comment textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .new-comment button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .new-comment button:hover {
+    background-color: #0056b3;
+  }
