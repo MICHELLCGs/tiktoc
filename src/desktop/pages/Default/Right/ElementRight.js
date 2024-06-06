@@ -1,7 +1,7 @@
 import React from 'react';
 import VideoItem from './VideoItem';
 import './ElementRight.scss';
-
+import '../../../../api/axiosConfig'
 function ElementRight() {
   const videoData = [
     {
