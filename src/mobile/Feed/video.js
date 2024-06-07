@@ -5,6 +5,8 @@ import VideoCard from '../components/VideoCard';
 import BottomNavbar from '../components/BottomNavbar';
 import TopNavbar from '../components/TopNavbar';
 
+
+
 const videoUrls = [
   {
     id: '1',
