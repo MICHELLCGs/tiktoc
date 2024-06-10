@@ -12,10 +12,6 @@ function App() {
     followers: 3400,
     following: 300,
     videos: [
-      { url: require('../videos/video1.mp4') },
-      { url: require('../videos/video2.mp4') },
-      { url: require('../videos/video3.mp4') },
-      { url: require('../videos/video4.mp4') }
     ]
   });
 
