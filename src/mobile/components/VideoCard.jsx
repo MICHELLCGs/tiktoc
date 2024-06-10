@@ -11,12 +11,6 @@ const VideoCard = (props) => {
   const [videoComments, setVideoComments] = useState(commentList);
 
   useEffect(() => {
-    if (autoplay) {
-      videoRef.current.play();
-    }
-  }, [autoplay]);
-
-  useEffect(() => {
     const handleTimeUpdate = () => {
       const currentTime = videoRef.current.currentTime;
       const duration = videoRef.current.duration;
@@ -67,7 +61,9 @@ const VideoCard = (props) => {
 
   const onVideoPress = () => {
     if (videoRef.current.paused) {
-      videoRef.current.play();
+      videoRef.current.play().catch(error => {
+        console.error('Error al reproducir el video:', error);
+      });
     } else {
       videoRef.current.pause();
     }
