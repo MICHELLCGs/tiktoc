@@ -6,10 +6,10 @@ import MobileDesign from './mobile/MobileApp';
 import DesktopDesign from './desktop/DesktopApp';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import MobilProfile from './mobile/Profile/Profile'
+import MobilProfile from './mobile/Profile/Profile';
 
 function App() {
-  const prefersDesktop = useMediaQuery('(min-width:600px)');
+  // const prefersDesktop = useMediaQuery('(min-width:600px)');
   const theme = createTheme();
 
   return (
@@ -21,10 +21,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route
             path="/"
-            element={prefersDesktop ? <DesktopDesign /> : <MobileDesign />}
+            element={/* prefersDesktop ? <DesktopDesign /> : */ <MobileDesign />}
           />
           <Route path="/perfil" element={<MobilProfile />} />
-          
         </Routes>
       </Router>
     </ThemeProvider>
