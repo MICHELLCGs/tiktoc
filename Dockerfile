@@ -4,9 +4,14 @@ FROM node:14
 # Establecer el directorio de trabajo
 WORKDIR /app
 
-# Instalar las dependencias del proyecto
+# Copiar los archivos de configuración
 COPY package*.json ./
+
+# Instalar las dependencias del proyecto
 RUN npm install
+
+# Instalar específicamente la versión de fontawesome-svg-core requerida
+RUN npm install @fortawesome/fontawesome-svg-core@latest
 
 # Copiar el resto del código de la aplicación
 COPY . .
