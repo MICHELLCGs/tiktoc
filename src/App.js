@@ -1,33 +1,39 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useMediaQuery, CssBaseline } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import MobileDesign from './mobile/MobileApp';
-import DesktopDesign from './desktop/DesktopApp';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
-import MobilProfile from './mobile/Profile/Profile';
+import { ThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
+import Home from './pages/Feed/video';
+import Login from './Auth/Login';
+import Register from './Auth/Register';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
+import { lightTheme, darkTheme } from './theme';
 
 function App() {
-  // const prefersDesktop = useMediaQuery('(min-width:600px)');
-  const theme = createTheme();
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const selectedTheme = prefersDarkMode ? darkTheme : lightTheme;
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={selectedTheme}>
       <CssBaseline />
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/"
-            element={/* prefersDesktop ? <DesktopDesign /> : */ <MobileDesign />}
-          />
-          <Route path="/perfil" element={<MobilProfile />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
 
 export default App;
+
