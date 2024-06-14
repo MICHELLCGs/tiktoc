@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -8,12 +7,17 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Cargar el usuario desde localStorage cuando se inicializa el contexto
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    console.log('Stored user:', storedUser);
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Error parsing stored user data:", error);
+        // Opcionalmente, podrías limpiar el almacenamiento si los datos están corruptos
+        localStorage.removeItem('user');
+      }
     }
   }, []);
 

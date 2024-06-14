@@ -1,5 +1,5 @@
 // src/Auth/Login.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, TextField, Button, Divider, IconButton, useMediaQuery, Modal } from '@mui/material';
 import { Google } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
@@ -7,7 +7,7 @@ import { auth, googleProvider } from '../firebase/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, createUser } from '../api/userService';
-import { useAuth } from '../context/AuthContext'; // Importa el contexto de autenticación
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const theme = useTheme();
@@ -17,12 +17,25 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const { login } = useAuth(); // Obtén la función login del contexto
+  const { user, login } = useAuth();
+
+  useEffect(() => {
+    // Si ya hay un usuario autenticado, redirigir a la página principal
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleLogin = async () => {
     try {
       const response = await loginUser(email, password);
-      login(response); // Llama a la función login con los datos del usuario
+      const userData = {
+        email: response.email,
+        user_id: response.user_id,
+        username: response.username,
+        // Agrega otros campos relevantes aquí
+      };
+      login(userData);
       navigate('/');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -57,7 +70,7 @@ const Login = () => {
         }
       }
 
-      login(userData); // Llama a la función login con los datos del usuario
+      login(userData);
       navigate('/');
     } catch (error) {
       console.error('Error al iniciar sesión con Google:', error);
@@ -137,5 +150,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
