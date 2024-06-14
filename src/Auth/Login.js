@@ -123,7 +123,7 @@ const Login = () => {
         </Box>
         <Divider sx={{ my: 3 }}>o</Divider>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-          <IconButton color="primary" onClick={handleGoogleSignIn}>
+          <IconButton color="primary" onClick={""}>
             <Google />
           </IconButton>
         </Box>

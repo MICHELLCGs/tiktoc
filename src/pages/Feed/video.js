@@ -17,7 +17,7 @@ function Video() {
     if (fetchingVideo) return; // Evitar solicitudes múltiples simultáneas
     try {
       setFetchingVideo(true); // Marcar que se está realizando una solicitud
-      console.log(user.user_id);
+      // console.log(user.user_id + "" + user.profile_picture);
       const nextVideo = await fetchNextVideo(user.user_id.toString()); // Usar el id del usuario autenticado
       setVideos(prevVideos => [...prevVideos, nextVideo]);
     } catch (error) {
@@ -89,7 +89,7 @@ function Video() {
             likes={video.likes}
             comments={video.comments}
             url={'https://cdn.tiktoc.pro/' + video.filename}
-            profilePic={video.profilePic}
+            profilePic={user.profile_picture}
             commentList={video.commentList}
             setVideoRef={handleVideoRef(index)}
             autoplay={false} // Desactivar la reproducción automática

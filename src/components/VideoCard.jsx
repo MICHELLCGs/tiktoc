@@ -1,12 +1,26 @@
-import React, { useRef, useEffect, useState } from 'react';
-import FooterLeft from './FooterLeft';
-import FooterRight from './FooterRight';
-import CommentsModal from './CommentsModal';
-import { createViewHistory } from '../api/view_historyService';
-import '../styles/VideoCard.css';
+import React, { useRef, useEffect, useState } from "react";
+import FooterLeft from "./FooterLeft";
+import FooterRight from "./FooterRight";
+import CommentsModal from "./CommentsModal";
+import { createViewHistory } from "../api/view_historyService";
+import "../styles/VideoCard.css";
 
 const VideoCard = (props) => {
-  const { id, url, username, description, song, likes, comments, profilePic, setVideoRef, commentList, onCommentsToggle, isCurrentVideo, userId } = props;
+  const {
+    id,
+    url,
+    username,
+    description,
+    song,
+    likes,
+    comments,
+    profilePic,
+    setVideoRef,
+    commentList,
+    onCommentsToggle,
+    isCurrentVideo,
+    userId,
+  } = props;
   const videoRef = useRef(null);
   const [showComments, setShowComments] = useState(false);
   const [videoComments, setVideoComments] = useState(commentList);
@@ -17,41 +31,39 @@ const VideoCard = (props) => {
       const currentTime = videoRef.current.currentTime;
       const seconds = Math.floor(currentTime);
       setSecondsWatched(seconds);
-      console.log(`Video ID: ${userId} - Seconds Watched: ${seconds} seconds`);
-      
+      // console.log(`Video ID: ${userId} - Seconds Watched: ${seconds} seconds`);
     };
 
     const handlePause = async () => {
       if (secondsWatched > 0) {
         // Obtener la fecha actual y formatearla
         const date = new Date();
-        const formattedDate = date.toISOString().split('.')[0]; // Elimina los milisegundos
+        const formattedDate = date.toISOString().split(".")[0]; // Elimina los milisegundos
         const viewData = {
           userId,
           videoId: id,
           dateViewed: formattedDate, // Utilizar la fecha formateada
           duration: secondsWatched,
         };
-        console.log(viewData);
+        // console.log(viewData);
         try {
           await createViewHistory(viewData);
-          console.log(`View history saved for video ID: ${id}`);
+          // console.log(`View history saved for video ID: ${id}`);
         } catch (error) {
-          console.error('Error saving view history:', error);
+          console.error("Error saving view history:", error);
         }
       }
     };
-    
 
     const videoElement = videoRef.current;
-    videoElement.addEventListener('timeupdate', handleTimeUpdate);
-    videoElement.addEventListener('pause', handlePause);
-    videoElement.addEventListener('ended', handlePause);
+    videoElement.addEventListener("timeupdate", handleTimeUpdate);
+    videoElement.addEventListener("pause", handlePause);
+    videoElement.addEventListener("ended", handlePause);
 
     return () => {
-      videoElement.removeEventListener('timeupdate', handleTimeUpdate);
-      videoElement.removeEventListener('pause', handlePause);
-      videoElement.removeEventListener('ended', handlePause);
+      videoElement.removeEventListener("timeupdate", handleTimeUpdate);
+      videoElement.removeEventListener("pause", handlePause);
+      videoElement.removeEventListener("ended", handlePause);
     };
   }, [id, secondsWatched, userId]);
 
@@ -64,8 +76,8 @@ const VideoCard = (props) => {
 
   const onVideoPress = () => {
     if (videoRef.current.paused) {
-      videoRef.current.play().catch(error => {
-        console.error('Error al reproducir el video:', error);
+      videoRef.current.play().catch((error) => {
+        console.error("Error al reproducir el video:", error);
       });
     } else {
       videoRef.current.pause();
@@ -81,6 +93,13 @@ const VideoCard = (props) => {
   const addComment = (newComment) => {
     setVideoComments((prevComments) => [...prevComments, newComment]);
   };
+
+  // Componente SVG para mostrar la imagen de perfil
+  const ProfilePicSVG = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+      <image href={profilePic} width="50" height="50" />
+    </svg>
+  );
 
   return (
     <div className="video">
@@ -98,21 +117,27 @@ const VideoCard = (props) => {
       ></video>
       <div className="bottom-controls">
         <div className="footer-left">
-          <FooterLeft username={username} description={description} song={song} />
+          <FooterLeft
+            username={username}
+            description={description}
+            song={song}
+          />
         </div>
         <div className="footer-right">
-          <FooterRight 
-            likes={likes} 
-            comments={comments} 
-            profilePic={profilePic}  
-            commentList={commentList} 
+          <FooterRight
+            likes={likes}
+            comments={comments}
+            profilePic={
+              <div className="profile-pic-container">{ProfilePicSVG}</div>
+            }
+            commentList={commentList}
             onCommentsToggle={toggleComments}
             showComments={showComments}
           />
         </div>
       </div>
       {showComments && (
-        <CommentsModal 
+        <CommentsModal
           comments={videoComments}
           onClose={toggleComments}
           onCommentSubmit={addComment}
@@ -123,4 +148,3 @@ const VideoCard = (props) => {
 };
 
 export default VideoCard;
-

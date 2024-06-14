@@ -34,3 +34,14 @@
   align-items: flex-end;
   height: 100%;
 }
+
+.profile-pic-container {
+  width: 50px; /* Ancho máximo */
+  height: 50px; /* Altura máxima */
+  overflow: hidden; /* Evita que la imagen se desborde del contenedor */
+}
+
+.profile-pic-container img {
+  width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
+  height: auto; /* Altura automática para mantener la proporción */
+}
