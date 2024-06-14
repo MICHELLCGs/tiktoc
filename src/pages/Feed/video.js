@@ -82,7 +82,7 @@ function Video() {
         {videos.map((video, index) => (
           <VideoCard
             key={index}
-            id={video.id}
+            id={video.id_video}
             username={video.username}
             description={video.tags}
             song={video.song}
@@ -94,6 +94,7 @@ function Video() {
             setVideoRef={handleVideoRef(index)}
             autoplay={false} // Desactivar la reproducción automática
             isCurrentVideo={index === currentVideoIndex}
+            userId={user.user_id}
           />
         ))}
         <BottomNavbar className="bottom-navbar" />

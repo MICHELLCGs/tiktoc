@@ -2,62 +2,65 @@ import React, { useRef, useEffect, useState } from 'react';
 import FooterLeft from './FooterLeft';
 import FooterRight from './FooterRight';
 import CommentsModal from './CommentsModal';
+import { createViewHistory } from '../api/view_historyService';
 import '../styles/VideoCard.css';
 
 const VideoCard = (props) => {
-  const { id, url, username, description, song, likes, comments, profilePic, setVideoRef, autoplay, commentList, onCommentsToggle, isCurrentVideo } = props;
+  const { id, url, username, description, song, likes, comments, profilePic, setVideoRef, commentList, onCommentsToggle, isCurrentVideo, userId } = props;
   const videoRef = useRef(null);
   const [showComments, setShowComments] = useState(false);
   const [videoComments, setVideoComments] = useState(commentList);
+  const [secondsWatched, setSecondsWatched] = useState(0);
 
   useEffect(() => {
     const handleTimeUpdate = () => {
       const currentTime = videoRef.current.currentTime;
-      const duration = videoRef.current.duration;
-      const percentagePlayed = Math.min((currentTime / duration) * 100, 100);
-      if (!isNaN(percentagePlayed)) {
-        console.log(`Video ID: ${id} - Percentage Played: ${percentagePlayed.toFixed(2)}%`);
-      }
+      const seconds = Math.floor(currentTime);
+      setSecondsWatched(seconds);
+      console.log(`Video ID: ${userId} - Seconds Watched: ${seconds} seconds`);
+      
     };
 
-    const handleProgress = () => {
-      const buffered = videoRef.current.buffered;
-      if (buffered.length > 0) {
-        const bufferEnd = buffered.end(buffered.length - 1);
-        const duration = videoRef.current.duration;
-        const bufferPercentage = (bufferEnd / duration) * 100;
-        console.log(`Video ID: ${id} - Buffered: ${bufferPercentage.toFixed(2)}%`);
+    const handlePause = async () => {
+      if (secondsWatched > 0) {
+        // Obtener la fecha actual y formatearla
+        const date = new Date();
+        const formattedDate = date.toISOString().split('.')[0]; // Elimina los milisegundos
+        const viewData = {
+          userId,
+          videoId: id,
+          dateViewed: formattedDate, // Utilizar la fecha formateada
+          duration: secondsWatched,
+        };
+        console.log(viewData);
+        try {
+          await createViewHistory(viewData);
+          console.log(`View history saved for video ID: ${id}`);
+        } catch (error) {
+          console.error('Error saving view history:', error);
+        }
       }
     };
-
-    const handleLoadedMetadata = () => {
-      console.log(`Video ID: ${id} - Percentage Played: 0.00%`);
-    };
+    
 
     const videoElement = videoRef.current;
     videoElement.addEventListener('timeupdate', handleTimeUpdate);
-    videoElement.addEventListener('progress', handleProgress);
-    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    videoElement.addEventListener('pause', handlePause);
+    videoElement.addEventListener('ended', handlePause);
 
     return () => {
       videoElement.removeEventListener('timeupdate', handleTimeUpdate);
-      videoElement.removeEventListener('progress', handleProgress);
-      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      videoElement.removeEventListener('pause', handlePause);
+      videoElement.removeEventListener('ended', handlePause);
     };
-  }, [id]);
+  }, [id, secondsWatched, userId]);
 
   useEffect(() => {
     if (!isCurrentVideo) {
       videoRef.current.currentTime = 0;
-      console.log(`Video ID: ${id} - Percentage Played: 0.00%`);
+      setSecondsWatched(0);
     }
   }, [isCurrentVideo]);
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
 
   const onVideoPress = () => {
     if (videoRef.current.paused) {
@@ -120,3 +123,4 @@ const VideoCard = (props) => {
 };
 
 export default VideoCard;
+
