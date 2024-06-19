@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
-import Home from './pages/Feed/video';
+import Home from '../src/pages/Feed/video';
+import HomeDesktop from './pages/Feed/HomeDesktop';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import { AuthProvider } from './context/AuthContext';
@@ -11,6 +12,7 @@ import { lightTheme, darkTheme } from './theme';
 function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const selectedTheme = prefersDarkMode ? darkTheme : lightTheme;
+  const isDesktop = useMediaQuery('(min-width: 480px)');
 
   return (
     <ThemeProvider theme={selectedTheme}>
@@ -24,7 +26,7 @@ function App() {
               path="/"
               element={
                 <ProtectedRoute>
-                  <Home />
+                  {isDesktop ? <HomeDesktop /> : <Home />}
                 </ProtectedRoute>
               }
             />
@@ -36,4 +38,3 @@ function App() {
 }
 
 export default App;
-

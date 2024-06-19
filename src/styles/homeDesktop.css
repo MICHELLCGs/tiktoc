@@ -1,0 +1,21 @@
+.home-desktop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.top-navbar {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.videos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}

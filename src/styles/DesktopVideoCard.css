@@ -1,0 +1,32 @@
+.desktop-video-card {
+  background-color: #161616;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 300px;
+  margin: 10px;
+}
+
+.desktop-player {
+  width: 100%;
+  height: auto;
+}
+
+.video-info {
+  padding: 10px;
+}
+
+.profile-pic img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.video-details {
+  margin-top: 10px;
+}
+
+.video-stats {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}

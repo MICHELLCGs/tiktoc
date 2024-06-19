@@ -1,29 +1,22 @@
-# Etapa de construcción
-FROM node:14 as build
+# Usa una imagen base con Node.js
+FROM node:18.20.2
 
-# Establecer el directorio de trabajo en la carpeta de la aplicación
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar los archivos de configuración y dependencias del proyecto
-COPY package.json package-lock.json ./
+# Copia el archivo package.json y package-lock.json (si existe) para instalar las dependencias
+COPY package*.json ./
 
-# Instalar dependencias
+# Instala las dependencias
 RUN npm install
+RUN npm update
 
-# Copiar el resto de los archivos del proyecto
-COPY . .
+# Copia los archivos de las carpetas public y src al directorio de trabajo dentro del contenedor
+COPY public ./public
+COPY src ./src
 
-# Construir la aplicación React
-RUN npm run build
+# Expone el puerto 3000 para que la aplicación React sea accesible desde el exterior
+EXPOSE 3000
 
-# Etapa de producción
-FROM nginx:alpine
-
-# Copiar los archivos de compilación de la etapa de construcción a la carpeta de archivos estáticos de Nginx
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Exponer el puerto 80 para que la aplicación sea accesible desde el exterior
-EXPOSE 80
-
-# Comando para iniciar Nginx cuando se ejecute el contenedor
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para iniciar la aplicación en modo de desarrollo, escuchando en todas las interfaces de red
+CMD ["sh", "-c", "npm start -- --host 0.0.0.0"]
