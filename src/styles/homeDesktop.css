@@ -1,9 +1,9 @@
-.home-desktop {
+/*.home-desktop {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #000;
-  color: #fff;
+  color: #000000;
   min-height: 100vh;
 }
 
@@ -18,4 +18,49 @@
   gap: 20px;
   justify-content: center;
   padding: 20px;
+}
+*/
+
+.home-desktop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* Cambiar el color de fondo a blanco para que el texto sea visible */
+  color: #000000; /* Cambiar el color del texto a negro */
+  min-height: 100vh;
+  padding: 20px; /* Espacio alrededor del contenido */
+}
+
+.video-container {
+  display: flex;
+  justify-content: center; /* Centra el contenedor de videos */
+  align-items: flex-start;
+  max-width: 1200px; /* Ancho máximo del contenedor de videos */
+  width: 100%;
+}
+
+.main-video {
+  flex: 1;
+  margin-right: 10px; /* Espacio estrecho entre el video principal y los videos adicionales */
+}
+
+.additional-videos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de tamaño igual */
+  grid-template-rows: repeat(2, 1fr); /* Dos filas de tamaño igual */
+  gap: 10px; /* Espacio entre los videos */
+  width: 300px; /* Ajustar el ancho total para la sección de videos adicionales */
+  height: calc(100vh - 100px); /* Altura fija para la sección de videos adicionales */
+  margin-right: 50px; /* Borde derecho de 50px */
+}
+
+.additional-videos .desktop-video-card {
+  width: 100%; /* Ancho completo para cada video en miniatura */
+  height: 100%; /* Altura completa para cada video en miniatura */
+}
+
+.additional-videos .desktop-video-card[small] video {
+  object-fit: cover; /* Asegurar que el video mantenga la proporción de TikTok */
+  height: 100%; /* Ajustar la altura del video */
+  width: 100%; /* Ajustar el ancho del video */
 }

@@ -1,3 +1,4 @@
+/*
 .desktop-video-card {
   background-color: #161616;
   border-radius: 10px;
@@ -29,4 +30,68 @@
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+}
+*/
+
+.desktop-video-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px; /* Ancho máximo del contenedor */
+  width: 100%; /* Ajusta el ancho al 100% del contenedor padre */
+  margin: 0 auto; /* Centra el componente en la pantalla */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Para evitar desbordamiento de contenido */
+  background-color: #fff; /* Color de fondo blanco */
+  margin-bottom: 20px; /* Espacio entre tarjetas (opcional) */
+}
+
+.desktop-player {
+  width: 100%;
+  height: 700px;
+  object-fit: cover; /* Para que el video se ajuste dentro del contenedor */
+  border-top-left-radius: 8px; /* Ajusta los bordes redondeados solo en la esquina superior izquierda */
+  border-top-right-radius: 8px; /* Ajusta los bordes redondeados solo en la esquina superior derecha */
+}
+
+.video-info {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: 80px; /* Altura fija para la sección de información */
+}
+
+.profile-pic img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* Para hacer la imagen circular */
+  margin-right: 10px;
+}
+
+.video-details {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.video-details h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.video-details p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.video-stats {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.video-stats p {
+  font-size: 12px;
+  margin-right: 10px;
+  color: #666;
 }
